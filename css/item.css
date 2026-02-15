@@ -1,0 +1,47 @@
+.items {
+  margin-top: 2.5rem;
+  display: grid;
+  row-gap: 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--text-muted);
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.3;
+  display: block;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.clear-btn {
+  text-transform: uppercase;
+  background: transparent;
+  border-color: transparent;
+  color: var(--secondary);
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.clear-btn:hover {
+  color: #fff;
+  background: var(--secondary);
+  box-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
+}
