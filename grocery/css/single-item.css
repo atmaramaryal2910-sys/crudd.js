@@ -6,16 +6,18 @@
   align-items: center;
   gap: 1rem;
   transition: var(--transition);
-  border: 1px solid var(--glass-border);
+  border: 1px solid #e2e8f0;
+  /* Slate 200 */
   position: relative;
   overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .single-item:hover {
   transform: translateY(-2px);
-  background: rgba(30, 41, 59, 0.9);
-  border-color: rgba(168, 85, 247, 0.3);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
 .single-item::before {
@@ -47,6 +49,7 @@
   font-size: 1.05rem;
   color: var(--text-main);
   transition: var(--transition);
+  font-weight: 500;
 }
 
 .single-item input[type="checkbox"] {
@@ -55,6 +58,7 @@
   cursor: pointer;
   accent-color: var(--primary);
   border-radius: 4px;
+  border-color: #cbd5e1;
 }
 
 .due-date {
@@ -85,7 +89,8 @@
   padding: 0.5rem;
   border-radius: 0.5rem;
   transition: var(--transition);
-  color: var(--text-muted);
+  color: #94a3b8;
+  /* Slate 400 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,17 +98,19 @@
 
 .edit-btn:hover {
   color: var(--primary);
-  background: rgba(168, 85, 247, 0.1);
+  background: #f3e8ff;
+  /* Light purple bg */
 }
 
 .remove-btn:hover {
   color: var(--secondary);
-  background: rgba(244, 63, 94, 0.1);
+  background: #ffe4e6;
+  /* Light rose bg */
 }
 
 /* Checked state styling */
 input:checked+.item-content p {
-  color: var(--text-muted);
+  color: #94a3b8;
   text-decoration: line-through;
-  opacity: 0.7;
+  opacity: 0.8;
 }
