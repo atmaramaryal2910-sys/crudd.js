@@ -1,5 +1,4 @@
-// ....
-// import { groceryItems } from "./data.js";
+
 import { createItems } from "./items.js";
 import { createForm } from "./form.js";
 

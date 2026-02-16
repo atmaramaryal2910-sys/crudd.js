@@ -1,65 +1,109 @@
-import { editCompleted, removeItem, setEditId } from "./app.js";
-
-// Format due date for display
-function formatDueDate(dateString) {
-  if (!dateString) return "";
-  const date = new Date(dateString + "T00:00:00");
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-
-  if (date.toDateString() === today.toDateString()) {
-    return "Today";
-  } else if (date.toDateString() === tomorrow.toDateString()) {
-    return "Tomorrow";
-  }
-
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+.single-item {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: var(--transition);
+  border: 1px solid var(--glass-border);
+  position: relative;
+  overflow: hidden;
 }
 
-// Check if due date is overdue
-function isOverdue(dateString) {
-  if (!dateString) return false;
-  const date = new Date(dateString + "T00:00:00");
-  const today = new Date();
-  return date < today;
+.single-item:hover {
+  transform: translateY(-2px);
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(168, 85, 247, 0.3);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-// Create SingleItem Element
-export function createSingleItem(item) {
-  const div = document.createElement("div");
-  div.className = "single-item";
+.single-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary);
+  opacity: 0;
+  transition: var(--transition);
+}
 
-  const dueDateClass =
-    item.dueDate && isOverdue(item.dueDate) ? " overdue" : "";
-  const dueDateDisplay = item.dueDate
-    ? `<span class="due-date${dueDateClass}">${formatDueDate(item.dueDate)}</span>`
-    : "";
+.single-item:hover::before {
+  opacity: 1;
+}
 
-  div.innerHTML = `
-    <input type="checkbox" ${item.completed ? "checked" : ""} />
-    <div class="item-content">
-      <p style="text-decoration: ${item.completed ? "line-through" : "none"}">
-        ${item.name}
-      </p>
-      ${dueDateDisplay}
-    </div>
-    <button class="btn icon-btn edit-btn" type="button">
-      <i class="fa-regular fa-pen-to-square"></i>
-    </button>
-    <button class="btn icon-btn remove-btn" type="button">
-      <i class="fa-regular fa-trash-can"></i>
-    </button>
-  `;
+.item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
 
-  const checkbox = div.querySelector('input[type="checkbox"]');
-  checkbox.addEventListener("change", () => editCompleted(item.id));
-  // Add event listener for edit button
-  const editBtn = div.querySelector(".edit-btn");
-  editBtn.addEventListener("click", () => setEditId(item.id));
-  // Add event listener for remove button
-  const removeBtn = div.querySelector(".remove-btn");
-  removeBtn.addEventListener("click", () => removeItem(item.id));
+.single-item p {
+  margin: 0;
+  letter-spacing: 0.5px;
+  font-size: 1.05rem;
+  color: var(--text-main);
+  transition: var(--transition);
+}
 
-  return div;
+.single-item input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
+  accent-color: var(--primary);
+  border-radius: 4px;
+}
+
+.due-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.due-date::before {
+  content: "📅";
+  /* Simple icon */
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.due-date.overdue {
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: var(--transition);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-btn:hover {
+  color: var(--primary);
+  background: rgba(168, 85, 247, 0.1);
+}
+
+.remove-btn:hover {
+  color: var(--secondary);
+  background: rgba(244, 63, 94, 0.1);
+}
+
+/* Checked state styling */
+input:checked+.item-content p {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  opacity: 0.7;
 }
